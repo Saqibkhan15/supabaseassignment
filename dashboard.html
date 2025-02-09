@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="top-nav">
+        <div class="nav-buttons">
+            <button onclick="window.location.href='update_account.html'" class="btn">Update Account</button>
+            <button id="dark-mode-toggle" class="btn">Toggle Dark Mode</button>
+        </div>
+
+        <div class="profile-section">
+            <img id="profile-pic" src="default-profile.png" alt="Profile Picture">
+            <span id="user-name">Loading...</span>
+            <button id="logout-btn" class="btn logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <h1>Welcome to Your Dashboard</h1>
+
+        <h2>Create a Post</h2>
+        <form id="post-form">
+            <input type="text" id="post-title" placeholder="Post Title" required>
+            <textarea id="post-content" placeholder="Post Content" required></textarea>
+            <button type="submit" class="btn">Create Post</button>
+        </form>
+
+        <h2>Your Posts</h2>
+        <p id="loading-message">Loading posts...</p>
+        <div id="posts-container"></div>
+    </div>
+
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>

@@ -118,5 +118,29 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
     }
 });
 
+// Create Post
+document.getElementById('post-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const title = document.getElementById('post-title').value;
+    const content = document.getElementById('post-content').value;
+
+    if (!title || !content) return alert("Please fill out both the title and content.");
+
+    try {
+        const { error } = await supabaseconfig
+            .from('posts')
+            .insert([
+                { title, content, author_name: 'User', created_at: new Date().toISOString() }
+            ]);
+
+        if (error) throw error;
+
+        loadPosts();  // Reload posts after new one is created
+    } catch (err) {
+        console.error("Error creating post:", err.message);
+    }
+});
+
 // Load Initial Posts
 loadPosts();

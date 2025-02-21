@@ -1,4 +1,4 @@
-/* Reset and General Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -16,13 +16,13 @@ body {
     flex-direction: column;
 }
 
-/* Dark Mode */
+
 .dark-mode {
     background: #1e1e1e;
     color: white;
 }
 
-/* Navigation */
+
 .top-nav {
     position: absolute;
     top: 20px;
@@ -33,7 +33,7 @@ body {
     align-items: center;
 }
 
-/* Authentication Styles */
+
 .auth-container, .dashboard-container {
     background: rgba(255, 255, 255, 0.1);
     padding: 40px;
@@ -42,7 +42,7 @@ body {
     text-align: center;
 }
 
-/* Form Styles */
+
 form {
     display: flex;
     flex-direction: column;
@@ -71,7 +71,6 @@ input:focus, textarea:focus {
     border: 2px solid #00c6ff;
 }
 
-/* Buttons */
 .btn {
     width: 55%;
     padding: 12px;
@@ -89,7 +88,6 @@ input:focus, textarea:focus {
     transform: scale(1.05);
 }
 
-/* Profile Picture */
 .profile-section {
     display: flex;
     align-items: center;
@@ -112,7 +110,6 @@ input:focus, textarea:focus {
     font-weight: bold;
 }
 
-/* Logout Button */
 .logout-btn {
     background: red;
     padding: 8px 14px;
@@ -124,7 +121,6 @@ input:focus, textarea:focus {
     background: darkred;
 }
 
-/* Posts */
 .post-item {
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
@@ -132,7 +128,6 @@ input:focus, textarea:focus {
     margin-top: 10px;
 }
 
-/* Update Account Page */
 .auth-container {
     display: flex;
     justify-content: center;
@@ -170,7 +165,6 @@ h2 {
     text-align: left;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .top-nav {
         flex-direction: column;

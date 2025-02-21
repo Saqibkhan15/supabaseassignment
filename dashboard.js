@@ -1,6 +1,6 @@
 import { supabaseconfig } from './supabase.js';
 
-// Check User Session
+
 (async () => {
     try {
         const { data, error } = await supabaseconfig.auth.getSession();
@@ -31,7 +31,6 @@ import { supabaseconfig } from './supabase.js';
     }
 })();
 
-// Dark Mode Toggle with Local Storage
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 if (darkModeToggle) {
     const isDarkMode = localStorage.getItem('dark-mode') === 'enabled';
@@ -43,7 +42,7 @@ if (darkModeToggle) {
     });
 }
 
-// Fetch and Display Posts
+
 async function loadPosts() {
     try {
         document.getElementById('loading-message').textContent = 'Loading posts...';
@@ -71,13 +70,12 @@ async function loadPosts() {
     }
 }
 
-// Real-Time Post Updates
+
 supabaseconfig
     .channel('posts')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'posts' }, loadPosts)
     .subscribe();
 
-// Edit Post
 window.editPost = async (postId) => {
     const newTitle = prompt("Edit Title:");
     const newContent = prompt("Edit Content:");
@@ -96,7 +94,6 @@ window.editPost = async (postId) => {
     }
 };
 
-// Delete Post
 window.deletePost = async (postId) => {
     if (!confirm("Are you sure you want to delete this post?")) return;
 
@@ -108,7 +105,6 @@ window.deletePost = async (postId) => {
     }
 };
 
-// Logout Functionality
 document.getElementById('logout-btn').addEventListener('click', async () => {
     try {
         await supabaseconfig.auth.signOut();
@@ -118,7 +114,6 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
     }
 });
 
-// Create Post
 document.getElementById('post-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     

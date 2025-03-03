@@ -19,7 +19,7 @@ async function loadPosts() {
         if (error) throw error;
 
         const postsContainer = document.getElementById('posts-container');
-        postsContainer.innerHTML = ''; // Clear existing posts
+        postsContainer.innerHTML = '';
         document.getElementById('loading-message').style.display = 'none';
 
         posts.forEach(post => {
@@ -36,77 +36,98 @@ async function loadPosts() {
             `;
         });
     } catch (err) {
-        console.error("Error loading posts:", err.message);
+        Swal.fire('Error', err.message, 'error');
     }
 }
 
-// Listen for changes to posts in real-time
 supabaseconfig
     .channel('posts')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'posts' }, loadPosts)
     .subscribe();
 
 window.editPost = async (postId) => {
-    const newTitle = prompt("Edit Title:");
-    const newContent = prompt("Edit Content:");
+    const { value: formValues } = await Swal.fire({
+        title: 'Edit Post',
+        html: `
+            <input id="swal-title" class="swal2-input" placeholder="New Title">
+            <textarea id="swal-content" class="swal2-textarea" placeholder="New Content"></textarea>
+        `,
+        focusConfirm: false,
+        preConfirm: () => {
+            return {
+                title: document.getElementById('swal-title').value,
+                content: document.getElementById('swal-content').value
+            };
+        }
+    });
 
-    if (!newTitle || !newContent) return console.warn("Edit canceled.");
+    if (!formValues.title || !formValues.content) return;
 
     try {
         const { error } = await supabaseconfig
             .from('posts')
-            .update({ title: newTitle, content: newContent })
+            .update({ title: formValues.title, content: formValues.content })
             .eq('id', postId);
 
         if (error) throw error;
     } catch (err) {
-        console.error("Error editing post:", err.message);
+        Swal.fire('Error', err.message, 'error');
     }
 };
 
 window.deletePost = async (postId) => {
-    if (!confirm("Are you sure you want to delete this post?")) return;
+    const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!'
+    });
+
+    if (!result.isConfirmed) return;
 
     try {
         const { error } = await supabaseconfig.from('posts').delete().eq('id', postId);
         if (error) throw error;
     } catch (err) {
-        console.error("Error deleting post:", err.message);
+        Swal.fire('Error', err.message, 'error');
     }
 };
 
 document.getElementById('logout-btn').addEventListener('click', async () => {
     try {
         await supabaseconfig.auth.signOut();
-        window.location.href = 'login.html';
+        Swal.fire('Logged Out', 'You have been logged out successfully.', 'success').then(() => {
+            window.location.href = 'login.html';
+        });
     } catch (err) {
-        console.error("Error logging out:", err.message);
+        Swal.fire('Error', err.message, 'error');
     }
 });
 
-// Handle post submission
 document.getElementById('post-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const title = document.getElementById('post-title').value;
     const content = document.getElementById('post-content').value;
 
-    if (!title || !content) return alert("Please fill out both the title and content.");
+    if (!title || !content) {
+        return Swal.fire('Warning', 'Please fill out both the title and content.', 'warning');
+    }
 
     try {
         const { error } = await supabaseconfig
             .from('posts')
-            .insert([
-                { title, content, created_at: new Date().toISOString() }
-            ]);
+            .insert([{ title, content, created_at: new Date().toISOString() }]);
 
         if (error) throw error;
 
-        loadPosts();  // Reload posts after new one is created
+        Swal.fire('Success', 'Post created successfully.', 'success');
+        loadPosts();
     } catch (err) {
-        console.error("Error creating post:", err.message);
+        Swal.fire('Error', err.message, 'error');
     }
 });
 
-// Load initial posts when the page loads
 loadPosts();

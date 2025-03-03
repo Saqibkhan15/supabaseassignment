@@ -1,4 +1,3 @@
-/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -17,13 +16,11 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Dark Mode */
 .dark-mode {
     background: #1a1a1a;
     color: #e0e0e0;
 }
 
-/* Navigation Styles */
 .top-nav {
     position: absolute;
     top: 20px;
@@ -45,22 +42,22 @@ body {
 }
 
 .nav-buttons .btn:nth-child(1) {
-    background: #4CAF50; /* Soft Green */
+    background: #4CAF50;
     color: white;
 }
 
 .nav-buttons .btn:nth-child(2) {
-    background: #FF5722; /* Vibrant Orange */
+    background: #FF5722;
     color: white;
 }
 
 #dark-mode-toggle {
-    background: #607D8B; /* Blue-Grey */
+    background: #607D8B;
     color: white;
 }
 
 #logout-btn {
-    background: #E91E63; /* Pink */
+    background: #E91E63;
     color: white;
 }
 
@@ -72,7 +69,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Dashboard Content */
 .dashboard-container {
     background: rgba(255, 255, 255, 0.95);
     padding: 40px;
@@ -124,75 +120,94 @@ textarea::placeholder {
 input:focus,
 textarea:focus {
     background: #fff;
-    border: 1px solid #4CAF50; /* Soft Green */
+    border: 1px solid #4CAF50;
     transform: scale(1.02);
 }
 
-/* Table Styles */
+.submit-btn {
+    background: #446645;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+.submit-btn:focus {
+    outline: none;
+    border: 2px solid #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+.table-container {
+    width: 100%;
+    max-width: 900px;
+    height: 400px;
+    overflow-y: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-top: 20px;
+}
+
 table {
     width: 100%;
-    margin-top: 20px;
     border-collapse: collapse;
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    table-layout: fixed; /* Ensures table and text alignment */
+    table-layout: fixed;
 }
 
 th, td {
     padding: 18px;
     border-bottom: 1px solid #ddd;
-    text-align: center; /* Centers content in table cells */
-    vertical-align: middle; /* Ensures content is vertically centered */
-    color: #000; /* Black text color */
+    text-align: center;
+    vertical-align: middle;
+    color: #000;
 }
 
 th {
-    background-color: #FF5722; /* Vibrant Orange */
+    background-color: #000000;
     color: white;
-    text-align: center; /* Centers header text */
+    text-align: center;
 }
 
 td {
     background-color: rgba(255, 255, 255, 0.8);
-    text-align: center; /* Centers content in table cells */
+    text-align: center;
 }
 
 tr:hover {
-    background-color: rgba(255, 87, 34, 0.1); /* Lighter orange on hover */
+    background-color: rgba(255, 87, 34, 0.1);
 }
 
-button {
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: opacity 0.3s ease, background 0.3s ease;
-}
-
-button:hover {
-    opacity: 0.8;
-    background: #FF5722; /* Vibrant Orange */
-    color: white;
-}
-
-/* Post Item Styles */
 .post-item {
-    background: #333; /* Black background */
+    background: #333;
     padding: 18px;
     border-radius: 12px;
     margin-top: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Darker shadow */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease, transform 0.2s;
 }
 
 .post-item h3 {
     margin: 0;
-    color: #fff; /* White text color */
+    color: #fff;
 }
 
 .post-item p {
-    color: #ccc; /* Light grey text color */
+    color: #ccc;
 }
 
 .post-item small {
@@ -201,12 +216,11 @@ button:hover {
 
 .post-item:hover {
     transform: scale(1.02);
-    background: rgba(0, 0, 0, 0.95); /* Slightly lighter black on hover */
+    background: rgba(0, 0, 0, 0.95);
 }
 
-/* Specific Buttons for Post Items */
 .post-item .btn:nth-child(1) {
-    background: #4CAF50; /* Soft Green */
+    background: #4CAF50;
     color: white;
     padding: 8px 18px;
     margin-right: 12px;
@@ -216,7 +230,7 @@ button:hover {
 }
 
 .post-item .btn:nth-child(2) {
-    background: #FFC107; /* Amber */
+    background: #FFC107;
     color: white;
     padding: 8px 18px;
     cursor: pointer;
@@ -226,11 +240,10 @@ button:hover {
 
 .post-item .btn:hover {
     transform: scale(1.05);
-    background: #222; /* Darker background on hover */
+    background: #222;
     color: white;
 }
 
-/* Authentication Container */
 .auth-container {
     display: flex;
     justify-content: center;
@@ -288,7 +301,6 @@ button:hover {
     text-decoration: underline;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .top-nav {
         flex-direction: column;

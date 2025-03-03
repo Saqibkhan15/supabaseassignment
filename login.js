@@ -11,31 +11,34 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    // Validate form fields
     if (!email || !password) {
-        alert('Please enter both email and password.');
+        Swal.fire('Warning', 'Please enter both email and password.', 'warning');
         return;
     }
 
-    const loginButton = document.querySelector('.btn');
-    loginButton.disabled = true; // Disable button during login
-
+    const loginButton = document.querySelector('.submit-btn');
+    loginButton.disabled = true;  
     try {
-        const { error } = await supabaseconfig.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabaseconfig.auth.signInWithPassword({ email, password });
+        
         if (error) {
-            // Check for specific error messages
-            if (error.message.includes("Invalid email or password")) {
-                alert("Invalid email or password. Please try again.");
-            } else {
-                alert('Login failed: ' + error.message);
-            }
+            Swal.fire('Error', error.message || 'Login failed.', 'error');
             throw error;
         }
 
-        window.location.href = 'dashboard.html';
+        Swal.fire({
+            title: 'Success!',
+            text: 'Login successful!',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+        }).then(() => {
+            window.location.href = 'dashboard.html';
+        });
+
     } catch (err) {
         console.error(err);
     } finally {
-        loginButton.disabled = false; // Re-enable button after login attempt
+        loginButton.disabled = false;  
     }
 });

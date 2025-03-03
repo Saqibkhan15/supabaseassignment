@@ -1,36 +1,5 @@
 import { supabaseconfig } from './supabase.js';
 
-
-(async () => {
-    try {
-        const { data, error } = await supabaseconfig.auth.getSession();
-        if (error) throw error;
-
-        const { session } = data;
-        if (!session) {
-            window.location.href = 'login.html';
-            return;
-        }
-
-        const user = session.user;
-        document.getElementById('user-name').textContent = user.user_metadata.full_name || 'User';
-        
-        // Fetch profile picture
-        const { data: profileData, error: profileError } = await supabaseconfig
-            .from('profiles')
-            .select('profile_picture')
-            .eq('id', user.id)
-            .single();
-        
-        if (!profileError && profileData.profile_picture) {
-            document.getElementById('profile-pic').src = profileData.profile_picture;
-        }
-    } catch (err) {
-        console.error("Error checking session:", err.message);
-        window.location.href = 'login.html';
-    }
-})();
-
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 if (darkModeToggle) {
     const isDarkMode = localStorage.getItem('dark-mode') === 'enabled';
@@ -42,7 +11,6 @@ if (darkModeToggle) {
     });
 }
 
-
 async function loadPosts() {
     try {
         document.getElementById('loading-message').textContent = 'Loading posts...';
@@ -51,18 +19,20 @@ async function loadPosts() {
         if (error) throw error;
 
         const postsContainer = document.getElementById('posts-container');
-        postsContainer.innerHTML = '';
+        postsContainer.innerHTML = ''; // Clear existing posts
         document.getElementById('loading-message').style.display = 'none';
 
         posts.forEach(post => {
             postsContainer.innerHTML += `
-                <div class="post-item">
-                    <h3>${post.title}</h3>
-                    <p>${post.content}</p>
-                    <small>By ${post.author_name} | ${new Date(post.created_at).toLocaleString()}</small>
-                    <button onclick="editPost(${post.id})" class="btn">Edit</button>
-                    <button onclick="deletePost(${post.id})" class="btn">Delete</button>
-                </div>
+                <tr class="post-item">
+                    <td>${post.title}</td>
+                    <td>${post.content}</td>
+                    <td>${new Date(post.created_at).toLocaleString()}</td>
+                    <td>
+                        <button onclick="editPost(${post.id})" class="btn">Edit</button>
+                        <button onclick="deletePost(${post.id})" class="btn">Delete</button>
+                    </td>
+                </tr>
             `;
         });
     } catch (err) {
@@ -70,7 +40,7 @@ async function loadPosts() {
     }
 }
 
-
+// Listen for changes to posts in real-time
 supabaseconfig
     .channel('posts')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'posts' }, loadPosts)
@@ -114,9 +84,10 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
     }
 });
 
+// Handle post submission
 document.getElementById('post-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const title = document.getElementById('post-title').value;
     const content = document.getElementById('post-content').value;
 
@@ -126,7 +97,7 @@ document.getElementById('post-form').addEventListener('submit', async (e) => {
         const { error } = await supabaseconfig
             .from('posts')
             .insert([
-                { title, content, author_name: 'User', created_at: new Date().toISOString() }
+                { title, content, created_at: new Date().toISOString() }
             ]);
 
         if (error) throw error;
@@ -137,5 +108,5 @@ document.getElementById('post-form').addEventListener('submit', async (e) => {
     }
 });
 
-// Load Initial Posts
+// Load initial posts when the page loads
 loadPosts();

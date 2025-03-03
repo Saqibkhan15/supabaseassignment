@@ -8,35 +8,35 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <!-- Navigation Bar -->
     <div class="top-nav">
         <div class="nav-buttons">
-            <button id="dark-mode-toggle" class="btn"><img src="/icon/dark-theme-icon-1024x1024-oxftr06e.png" alt="" width="20px"> Dark Mode</button>
+            <button id="dark-mode-toggle" class="btn">Dark Mode</button>
+            <button id="logout-btn" class="btn logout-btn">Logout</button>
         </div>
     </div>
 
-    <!-- Main Dashboard Content -->
     <div class="dashboard-container">
-        <h1>Welcome to Your Dashboard</h1>
+        <h1>Welcome to Your Profile</h1>
 
         <h2>Create a Post</h2>
         <form id="post-form">
             <input type="text" id="post-title" placeholder="Post Title" required>
             <textarea id="post-content" placeholder="Post Content" required></textarea>
-            <button type="submit" class="btn">Create Post</button>
+         
+            <button type="submit" class="submit-btn">Submit</button>
         </form>
 
         <h2>Your Posts</h2>
-        <p id="loading-message">Loading posts...</p>
+        <p id="loading-message">posts...</p>
 
         <div class="table-container">
             <table id="posts-table">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Content</th>
-                        <th>Created At</th>
-                        <th>Actions</th>
+                        <th>Title of Post</th>
+                        <th>Post Content</th>
+                        <th>Published On</th>
+                        <th>Edit/Delete</th>
                     </tr>
                 </thead>
                 <tbody id="posts-container">
@@ -44,9 +44,7 @@
                 </tbody>
             </table>
         </div>
-
-    <!-- Logout Button -->
-    <button id="logout-btn" class="btn logout-btn">Logout</button>
+    </div>
 
     <script type="module" src="dashboard.js"></script>
 </body>

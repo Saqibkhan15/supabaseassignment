@@ -8,8 +8,8 @@ document.getElementById('forgot-password-form').addEventListener('submit', async
         const { error } = await supabaseconfig.auth.resetPasswordForEmail(email);
         if (error) throw error;
 
-        alert('A password reset link has been sent to your email.');
+        Swal.fire('Success', 'A password reset link has been sent to your email.', 'success');
     } catch (err) {
-        alert('Error sending reset email: ' + err.message);
+        Swal.fire('Error', 'Error sending reset email: ' + err.message, 'error');
     }
 });

@@ -5,20 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-
     <!-- Navigation Bar -->
     <div class="top-nav">
         <div class="nav-buttons">
-            <button onclick="window.location.href='update_account.html'" class="btn">Update Account</button>
-            <button id="dark-mode-toggle" class="btn" ><img src="/icon/dark-theme-icon-1024x1024-oxftr06e.png" alt="" width="20px">Dark Mode</button >
-        </div>
-
-        <div class="profile-section">
-            <img id="profile-pic" src="default-profile.png" alt="Profile Picture" class="profile-img">
-            <span id="user-name">Loading...</span>
-            <button id="logout-btn" class="btn logout-btn">Logout</button>
+            <button id="dark-mode-toggle" class="btn"><img src="/icon/dark-theme-icon-1024x1024-oxftr06e.png" alt="" width="20px"> Dark Mode</button>
         </div>
     </div>
 
@@ -35,8 +28,25 @@
 
         <h2>Your Posts</h2>
         <p id="loading-message">Loading posts...</p>
-        <div id="posts-container"></div>
-    </div>
+
+        <div class="table-container">
+            <table id="posts-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="posts-container">
+                    <!-- Posts will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+    <!-- Logout Button -->
+    <button id="logout-btn" class="btn logout-btn">Logout</button>
 
     <script type="module" src="dashboard.js"></script>
 </body>

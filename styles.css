@@ -71,13 +71,13 @@ body {
 
 .dashboard-container {
     background: rgba(255, 255, 255, 0.95);
-    padding: 40px;
+    padding: 11px;
     border-radius: 12px;
     box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.1);
     text-align: center;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 0, 0, 0.1);
-    width: 100%;
+    width: 55%;
     max-width: 900px;
     transition: transform 0.3s, opacity 0.3s;
 }
